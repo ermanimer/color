@@ -1,7 +1,7 @@
 # color
 Go color
 
-[![Build Status](https://travis-ci.org/ermanimer/color.svg?branch=master)](https://travis-ci.org/ermanimer/color)
+![Go](https://github.com/ermanimer/color/workflows/Go/badge.svg?branch=master)
 
 ## Features
 color prints colored text on Linux terminal.
