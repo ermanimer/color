@@ -4,7 +4,7 @@ Go color
 ![Go](https://github.com/ermanimer/color/workflows/Go/badge.svg?branch=master)
 
 ## Features
-color prints colored text on Linux terminal.
+color creates colored text for Linux terminal.
 
 ## Installation
 ```bash
@@ -13,56 +13,52 @@ go get -u github.com/ermanimer/color
 
 ## Colors
 | Constant | Value                   | Description         |
-| :------- | :---------------------- | :------------------ |
-| Black    | \u001b[30m%s\u001b[0m%s | Prints black text   |
-| Red      | \u001b[31m%s\u001b[0m%s | Prints red text     |
-| Green    | \u001b[32m%s\u001b[0m%s | Prints green text   |
-| Yellow   | \u001b[33m%s\u001b[0m%s | Prints yellow text  |
-| Blue     | \u001b[34m%s\u001b[0m%s | Prints blue text    |
-| Magenta  | \u001b[35m%s\u001b[0m%s | Prints magenta text |
-| Cyan     | \u001b[36m%s\u001b[0m%s | Prints cyan text    |
-| White    | \u001b[37m%s\u001b[0m%s | Prints white text   |
-
-## New Line
-| Constant | Value | Description                  |
-| :------- | :-----| :--------------------------- |
-| newLine  | \n    | New line character for Linux |
-
+| :------- | :-------------------- | :------------------ |
+| Black    | \u001b[30m%s\u001b[0m | Returns black text   |
+| Red      | \u001b[31m%s\u001b[0m | Returns red text     |
+| Green    | \u001b[32m%s\u001b[0m | Returns green text   |
+| Yellow   | \u001b[33m%s\u001b[0m | Returns yellow text  |
+| Blue     | \u001b[34m%s\u001b[0m | Returns blue text    |
+| Magenta  | \u001b[35m%s\u001b[0m | Returns magenta text |
+| Cyan     | \u001b[36m%s\u001b[0m | Returns cyan text    |
+| White    | \u001b[37m%s\u001b[0m | Returns white text   |
 
 ## Usage
 ```go
 package main
 
-import "github.com/ermanimer/color"
+import (
+	"fmt"
+
+	"github.com/ermanimer/color"
+)
 
 func main() {
 	//print black text
-	color.Black("This is a black text.")
-	
+	fmt.Println(color.Black("This is a black text."))
+
 	//print red text
-	color.Red("This is a red text.")
-	
+	fmt.Println(color.Red("This is a red text."))
+
 	//print green text
-	color.Green("This is a green text.")
-	
+	fmt.Println(color.Green("This is a green text."))
 
 	//print yellow text
-	color.Yellow("This is a yellow text.")
-	
+	fmt.Println(color.Yellow("This is a yellow text."))
+
 	//print blue text
-	color.Blue("This is a blue text.")
-	
+	fmt.Println(color.Blue("This is a blue text."))
+
 	//print magenta text
-	color.Magenta("This is a magenta text.")
-	
+	fmt.Println(color.Magenta("This is a magenta text."))
+
 	//print cyan text
-	color.Cyan("This is a cyan text.")
-	
+	fmt.Println(color.Cyan("This is a cyan text."))
+
 	//print white text
-	color.White("This is a white text.")
+	fmt.Println(color.White("This is a white text."))
 }
 ```
 
 ## Terminal Output
 ![Terminal Output](/images/terminal_output.png)
-
