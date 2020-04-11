@@ -14,11 +14,6 @@ const (
 	white   = "\u001b[37m%s\u001b[0m%s"
 )
 
-//new line character for Linux
-const (
-	newLine = "\n"
-)
-
 func Black(text string) {
 	print(black, text)
 }
@@ -52,5 +47,5 @@ func White(text string) {
 }
 
 func print(color string, text string) {
-	fmt.Print(fmt.Sprintf(color, text, newLine))
+	fmt.Printf(color, text)
 }
