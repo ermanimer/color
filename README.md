@@ -2,6 +2,7 @@
 Go color
 
 ![Go](https://github.com/ermanimer/color/workflows/Go/badge.svg?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ermanimer/color)](https://goreportcard.com/report/github.com/ermanimer/color)
 
 ## Features
 color creates colored text for Linux terminal.
