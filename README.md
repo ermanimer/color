@@ -36,28 +36,52 @@ import (
 
 func main() {
 	//print black text
-	fmt.Println(color.Black("This is a black text."))
+	fmt.Println(color.Black("this is a black text"))
+
+	//print formatted black text
+	fmt.Println(color.Blackf("this is a %v black text", "formatted"))
 
 	//print red text
-	fmt.Println(color.Red("This is a red text."))
+	fmt.Println(color.Red("this is a red text"))
+
+	//print formatted red text
+	fmt.Println(color.Redf("this is a %v red text", "formatted"))
 
 	//print green text
-	fmt.Println(color.Green("This is a green text."))
+	fmt.Println(color.Green("this is a green text"))
+
+	//print formatted green text
+	fmt.Println(color.Greenf("this is a %v green text", "formatted"))
 
 	//print yellow text
-	fmt.Println(color.Yellow("This is a yellow text."))
+	fmt.Println(color.Yellow("this is a yellow text"))
+
+	//print formatted yellow text
+	fmt.Println(color.Yellowf("this is a %v yellow text", "formatted"))
 
 	//print blue text
-	fmt.Println(color.Blue("This is a blue text."))
+	fmt.Println(color.Blue("this is a blue text"))
+
+	//print formatted blue text
+	fmt.Println(color.Bluef("this is a %v blue text", "formatted"))
 
 	//print magenta text
-	fmt.Println(color.Magenta("This is a magenta text."))
+	fmt.Println(color.Magenta("this is a magenta text"))
+
+	//print formatted magenta text
+	fmt.Println(color.Magentaf("this is a %v magenta text", "formatted"))
 
 	//print cyan text
-	fmt.Println(color.Cyan("This is a cyan text."))
+	fmt.Println(color.Cyan("this is a cyan text"))
+
+	//print formatted cyan text
+	fmt.Println(color.Cyanf("this is a %v cyan text", "formatted"))
 
 	//print white text
-	fmt.Println(color.White("This is a white text."))
+	fmt.Println(color.White("this is a white text"))
+
+	//print formatted white text
+	fmt.Println(color.Whitef("this is a %v white text", "formatted"))
 }
 ```
 
