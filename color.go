@@ -1,6 +1,9 @@
 package color
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 //colors
 const (
@@ -14,34 +17,83 @@ const (
 	white   = "\u001b[37m%s\u001b[0m"
 )
 
-func Black(text string) string {
-	return fmt.Sprintf(black, text)
+func Black(values ...interface{}) string {
+	return paint(black, values...)
 }
 
-func Red(text string) string {
-	return fmt.Sprintf(red, text)
+func Blackf(messageFormat string, values ...interface{}) string {
+	return paintf(black, messageFormat, values...)
 }
 
-func Green(text string) string {
-	return fmt.Sprintf(green, text)
+func Red(values ...interface{}) string {
+	return paint(red, values...)
 }
 
-func Yellow(text string) string {
-	return fmt.Sprintf(yellow, text)
+func Redf(messageFormat string, values ...interface{}) string {
+	return paintf(red, messageFormat, values...)
 }
 
-func Blue(text string) string {
-	return fmt.Sprintf(blue, text)
+func Green(values ...interface{}) string {
+	return paint(green, values...)
 }
 
-func Magenta(text string) string {
-	return fmt.Sprintf(magenta, text)
+func Greenf(messageFormat string, values ...interface{}) string {
+	return paintf(green, messageFormat, values...)
 }
 
-func Cyan(text string) string {
-	return fmt.Sprintf(cyan, text)
+func Yellow(values ...interface{}) string {
+	return paint(yellow, values...)
 }
 
-func White(text string) string {
-	return fmt.Sprintf(white, text)
+func Yellowf(messageFormat string, values ...interface{}) string {
+	return paintf(yellow, messageFormat, values...)
+}
+
+func Blue(values ...interface{}) string {
+	return paint(blue, values...)
+}
+
+func Bluef(messageFormat string, values ...interface{}) string {
+	return paintf(blue, messageFormat, values...)
+}
+
+func Magenta(values ...interface{}) string {
+	return paint(magenta, values...)
+}
+
+func Magentaf(messageFormat string, values ...interface{}) string {
+	return paintf(magenta, messageFormat, values...)
+}
+
+func Cyan(values ...interface{}) string {
+	return paint(cyan, values...)
+}
+
+func Cyanf(messageFormat string, values ...interface{}) string {
+	return paintf(cyan, messageFormat, values...)
+}
+
+func White(values ...interface{}) string {
+	return paint(white, values...)
+}
+
+func Whitef(messageFormat string, values ...interface{}) string {
+	return paintf(white, messageFormat, values...)
+}
+
+func paint(color string, values ...interface{}) string {
+	messageFormat := createMessageFormat(values...)
+	message := fmt.Sprintf(messageFormat, values...)
+	return fmt.Sprintf(color, message)
+}
+
+func paintf(color string, messageFormat string, values ...interface{}) string {
+	message := fmt.Sprintf(messageFormat, values...)
+	return fmt.Sprintf(color, message)
+}
+
+func createMessageFormat(values ...interface{}) string {
+	messageFormat := strings.Repeat("%v, ", len(values))
+	messageFormat = strings.Trim(messageFormat, ", ")
+	return messageFormat
 }
