@@ -17,14 +17,43 @@ go get -u github.com/ermanimer/color/v2
 package main
 
 import (
-	"fmt"
+	"os"
 
 	"github.com/ermanimer/color/v2"
 )
 
 func main() {
-	//...
+	//create color
+	color1 := &color.Color{
+		Foreground: color.Blue,
+	}
+
+	//use standard color names or 8-bit color codes for foreground and background color codes
+	color2 := &color.Color{
+		Foreground:    214,
+		HasBackground: true,
+		Background:    240,
+		IsBold:        true,
+		IsUnderlined:  false,
+		IsReversed:    false,
+	}
+
+	//create color with New function
+	//func New(foreground byte, hasBackground bool, background byte, isBold bool, isUnderlined bool, isReversed bool) *color.Color
+	color3 := color.New(color.Red, true, color.White, false, false, false)
+
+	//print with methods(Print, Printf, Println)
+	color1.Print("color 1")
+
+	//print with print functions(PrintFunction, PrintfFunction, PrintlnFunction, FprintFunction, FprintfFunction, FprintlnFunction)
+	printfColor2 := color2.PrintfFunction()
+	printfColor2("color %d", 2)
+
+	//print to an io.Writer with file print functions(FprintFunction, FprintfFunction, FprintlnFunction)
+	printlnColor3 := color3.FprintlnFunction()
+	printlnColor3(os.Stdout, "color 3")
 }
+
 ```
 
 ## Standard Colors
@@ -39,7 +68,7 @@ func main() {
 |Cyan|6|![#008080](https://singlecolorimage.com/get/008080/24x24)|BrightCyan|14|![#00ffff](https://singlecolorimage.com/get/00ffff/24x24)|
 |White|7|![#c0c0c0](https://singlecolorimage.com/get/c0c0c0/24x24)|BrightWhite|15|![#ffffff](https://singlecolorimage.com/get/ffffff/24x24)|
 
-## All 8-Bit Colors
+## 8-Bit Colors
 |Value|Color|Value|Color|Value|Color|Value|Color|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |0|![#000000](https://singlecolorimage.com/get/000000/24x24)|64|![#5f8700](https://singlecolorimage.com/get/5f8700/24x24)|128|![#af00d7](https://singlecolorimage.com/get/af00d7/24x24)|192|![#d7ff87](https://singlecolorimage.com/get/d7ff87/24x24)|
