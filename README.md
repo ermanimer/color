@@ -9,7 +9,7 @@ color prints 8-bit colored text for Linux terminal.
 
 ## Installation
 ```bash
-go get -u github.com/ermanimer/color/v2
+go get -u github.com/ermanimer/color
 ```
 
 ## Usage
