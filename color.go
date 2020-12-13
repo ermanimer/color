@@ -1,99 +1,156 @@
 package color
 
 import (
+	"bytes"
 	"fmt"
-	"strings"
+	"io"
 )
 
-//colors
+//Standard Colors
 const (
-	black   = "\u001b[30m%s\u001b[0m"
-	red     = "\u001b[31m%s\u001b[0m"
-	green   = "\u001b[32m%s\u001b[0m"
-	yellow  = "\u001b[33m%s\u001b[0m"
-	blue    = "\u001b[34m%s\u001b[0m"
-	magenta = "\u001b[35m%s\u001b[0m"
-	cyan    = "\u001b[36m%s\u001b[0m"
-	white   = "\u001b[37m%s\u001b[0m"
+	Black         byte = 0
+	Red           byte = 1
+	Green         byte = 2
+	Yellow        byte = 3
+	Blue          byte = 4
+	Magenta       byte = 5
+	Cyan          byte = 6
+	White         byte = 7
+	BrightBlack   byte = 8
+	BrightRed     byte = 9
+	BrightGreen   byte = 10
+	BrightYellow  byte = 11
+	BrightBlue    byte = 12
+	BrightMagenta byte = 13
+	BrightCyan    byte = 14
+	BrightWhite   byte = 15
 )
 
-func Black(values ...interface{}) string {
-	return paint(black, values...)
+//ANSI Escape Codes
+const (
+	ecForegroundColor = "\u001b[38;5;%dm"
+	ecBackgroundColor = "\u001b[48;5;%dm"
+	ecBold            = "\u001b[1m"
+	ecUnderline       = "\u001b[4m"
+	ecReversed        = "\u001b[7m"
+	ecReset           = "\u001b[0m"
+)
+
+type Color struct {
+	Foreground    byte
+	HasBackground bool
+	Background    byte
+	IsBold        bool
+	IsUnderlined  bool
+	IsReversed    bool
 }
 
-func Blackf(messageFormat string, values ...interface{}) string {
-	return paintf(black, messageFormat, values...)
+func New(foreground byte, hasBackground bool, background byte, isBold bool, isUnderlined bool, isReversed bool) *Color {
+	return &Color{
+		Foreground:    foreground,
+		HasBackground: hasBackground,
+		Background:    background,
+		IsBold:        isBold,
+		IsUnderlined:  isUnderlined,
+		IsReversed:    isReversed,
+	}
 }
 
-func Red(values ...interface{}) string {
-	return paint(red, values...)
+func (c *Color) Print(values ...interface{}) (n int, err error) {
+	text := fmt.Sprint(values...)
+	return fmt.Print(c.paint(text))
 }
 
-func Redf(messageFormat string, values ...interface{}) string {
-	return paintf(red, messageFormat, values...)
+func (c *Color) Printf(format string, values ...interface{}) (n int, err error) {
+	return fmt.Print(c.paintf(format, values...))
 }
 
-func Green(values ...interface{}) string {
-	return paint(green, values...)
+func (c *Color) Println(values ...interface{}) (n int, err error) {
+	text := fmt.Sprint(values...)
+	return fmt.Println(c.paint(text))
 }
 
-func Greenf(messageFormat string, values ...interface{}) string {
-	return paintf(green, messageFormat, values...)
+func (c *Color) Fprint(writer io.Writer, values ...interface{}) (n int, err error) {
+	text := fmt.Sprint(values...)
+	return fmt.Fprint(writer, c.paint(text))
 }
 
-func Yellow(values ...interface{}) string {
-	return paint(yellow, values...)
+func (c *Color) Fprintf(writer io.Writer, format string, values ...interface{}) (n int, err error) {
+	text := fmt.Sprintf(format, values...)
+	return fmt.Fprint(writer, c.paint(text))
 }
 
-func Yellowf(messageFormat string, values ...interface{}) string {
-	return paintf(yellow, messageFormat, values...)
+func (c *Color) Fprintln(writer io.Writer, values ...interface{}) (n int, err error) {
+	text := fmt.Sprint(values...)
+	return fmt.Fprintln(writer, c.paint(text))
 }
 
-func Blue(values ...interface{}) string {
-	return paint(blue, values...)
+func (c *Color) PrintFunction() func(values ...interface{}) {
+	return func(values ...interface{}) {
+		c.Print(values...)
+	}
 }
 
-func Bluef(messageFormat string, values ...interface{}) string {
-	return paintf(blue, messageFormat, values...)
+func (c *Color) PrintfFunction() func(format string, values ...interface{}) {
+	return func(format string, values ...interface{}) {
+		c.Printf(format, values...)
+	}
 }
 
-func Magenta(values ...interface{}) string {
-	return paint(magenta, values...)
+func (c *Color) PrintlnFunction() func(values ...interface{}) {
+	return func(values ...interface{}) {
+		c.Println(values...)
+	}
 }
 
-func Magentaf(messageFormat string, values ...interface{}) string {
-	return paintf(magenta, messageFormat, values...)
+func (c *Color) FprintFunction() func(writer io.Writer, values ...interface{}) {
+	return func(writer io.Writer, values ...interface{}) {
+		c.Fprint(writer, values...)
+	}
 }
 
-func Cyan(values ...interface{}) string {
-	return paint(cyan, values...)
+func (c *Color) FprintfFunction() func(writer io.Writer, format string, values ...interface{}) {
+	return func(writer io.Writer, format string, values ...interface{}) {
+		c.Fprintf(writer, format, values...)
+	}
 }
 
-func Cyanf(messageFormat string, values ...interface{}) string {
-	return paintf(cyan, messageFormat, values...)
+func (c *Color) FprintlnFunction() func(writer io.Writer, values ...interface{}) {
+	return func(writer io.Writer, values ...interface{}) {
+		c.Fprintln(writer, values...)
+	}
 }
 
-func White(values ...interface{}) string {
-	return paint(white, values...)
+func (c *Color) paint(text string) string {
+	//create buffer
+	b := new(bytes.Buffer)
+	//add foreground color
+	foreGround := fmt.Sprintf(ecForegroundColor, c.Foreground)
+	b.WriteString(foreGround)
+	//add background color
+	if c.HasBackground {
+		backGround := fmt.Sprintf(ecBackgroundColor, c.Background)
+		b.WriteString(backGround)
+	}
+	//add bold decoration
+	if c.IsBold {
+		b.WriteString(ecBold)
+	}
+	//add underline decoration
+	if c.IsUnderlined {
+		b.WriteString(ecUnderline)
+	}
+	//add reversed decoration
+	if c.IsReversed {
+		b.WriteString(ecReversed)
+	}
+	//add text
+	b.WriteString(text)
+	//add reset escape code
+	b.WriteString(ecReset)
+	return b.String()
 }
 
-func Whitef(messageFormat string, values ...interface{}) string {
-	return paintf(white, messageFormat, values...)
-}
-
-func paint(color string, values ...interface{}) string {
-	messageFormat := createMessageFormat(values...)
-	message := fmt.Sprintf(messageFormat, values...)
-	return fmt.Sprintf(color, message)
-}
-
-func paintf(color string, messageFormat string, values ...interface{}) string {
-	message := fmt.Sprintf(messageFormat, values...)
-	return fmt.Sprintf(color, message)
-}
-
-func createMessageFormat(values ...interface{}) string {
-	messageFormat := strings.Repeat("%v, ", len(values))
-	messageFormat = strings.Trim(messageFormat, ", ")
-	return messageFormat
+func (c *Color) paintf(format string, values ...interface{}) string {
+	return c.paint(fmt.Sprintf(format, values...))
 }
