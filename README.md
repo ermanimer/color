@@ -42,14 +42,17 @@ func main() {
 	//func New(foreground byte, hasBackground bool, background byte, isBold bool, isUnderlined bool, isReversed bool) *color.Color
 	color3 := color.New(color.Red, true, color.White, false, false, false)
 
-	//print with methods(Print, Printf, Println, Printfln)
+	//print with print methods Print, Printf, Println, Printfln
 	color1.Print("color 1")
 
-	//print with print functions(PrintFunction, PrintfFunction, PrintlnFunction, PrintflnFunction)
+        //print to an io.Writer with file print methods Fprint, Fprintf, Fprintln, Fprintfln
+        color1.Fprint(os.Stdout, "color 1")
+
+	//print with print functions PrintFunction, PrintfFunction, PrintlnFunction, PrintflnFunction
 	printfColor2 := color2.PrintfFunction()
 	printfColor2("color %d", 2)
 
-	//print to an io.Writer with file print functions(FprintFunction, FprintfFunction, FprintlnFunction, FprintflnFunction)
+	//print to an io.Writer with file print functions FprintFunction, FprintfFunction, FprintlnFunction, FprintflnFunction
 	printlnColor3 := color3.FprintlnFunction()
 	printlnColor3(os.Stdout, "color 3")
 }
