@@ -62,11 +62,17 @@ func (c *Color) Print(values ...interface{}) (n int, err error) {
 }
 
 func (c *Color) Printf(format string, values ...interface{}) (n int, err error) {
-	return fmt.Print(c.paintf(format, values...))
+	text := fmt.Sprintf(format, values...)
+	return fmt.Print(c.paint(text))
 }
 
 func (c *Color) Println(values ...interface{}) (n int, err error) {
 	text := fmt.Sprint(values...)
+	return fmt.Println(c.paint(text))
+}
+
+func (c *Color) Printfln(format string, values ...interface{}) (n int, err error) {
+	text := fmt.Sprintf(format, values...)
 	return fmt.Println(c.paint(text))
 }
 
@@ -82,6 +88,11 @@ func (c *Color) Fprintf(writer io.Writer, format string, values ...interface{}) 
 
 func (c *Color) Fprintln(writer io.Writer, values ...interface{}) (n int, err error) {
 	text := fmt.Sprint(values...)
+	return fmt.Fprintln(writer, c.paint(text))
+}
+
+func (c *Color) Fprintfln(writer io.Writer, format string, values ...interface{}) (n int, err error) {
+	text := fmt.Sprintf(format, values...)
 	return fmt.Fprintln(writer, c.paint(text))
 }
 
@@ -103,6 +114,12 @@ func (c *Color) PrintlnFunction() func(values ...interface{}) {
 	}
 }
 
+func (c *Color) PrintflnFunction() func(format string, values ...interface{}) {
+	return func(format string, values ...interface{}) {
+		c.Printfln(format, values...)
+	}
+}
+
 func (c *Color) FprintFunction() func(writer io.Writer, values ...interface{}) {
 	return func(writer io.Writer, values ...interface{}) {
 		c.Fprint(writer, values...)
@@ -118,6 +135,12 @@ func (c *Color) FprintfFunction() func(writer io.Writer, format string, values .
 func (c *Color) FprintlnFunction() func(writer io.Writer, values ...interface{}) {
 	return func(writer io.Writer, values ...interface{}) {
 		c.Fprintln(writer, values...)
+	}
+}
+
+func (c *Color) FprintflnFunction() func(writer io.Writer, format string, values ...interface{}) {
+	return func(writer io.Writer, format string, values ...interface{}) {
+		c.Fprintfln(writer, format, values...)
 	}
 }
 
@@ -149,8 +172,4 @@ func (c *Color) paint(text string) string {
 	//add reset escape code
 	b.WriteString(ecReset)
 	return b.String()
-}
-
-func (c *Color) paintf(format string, values ...interface{}) string {
-	return c.paint(fmt.Sprintf(format, values...))
 }
