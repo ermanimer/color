@@ -53,6 +53,20 @@ func TestPrintlnFunction(t *testing.T) {
 	function(testSentence)
 }
 
+func TestPrintflnFunction(t *testing.T) {
+	foreground := getRandomColor()
+	hasBackGround := getRandomBool()
+	background := getRandomColor()
+	isBold := getRandomBool()
+	isUnderlined := getRandomBool()
+	isReversed := getRandomBool()
+	color := New(foreground, hasBackGround, background, isBold, isUnderlined, isReversed)
+	function := color.PrintflnFunction()
+	fmt.Fprintf(os.Stdout, "foreground: %s, hasBackground: %t, background: %s, isBold: %t, isUnderlined: %t, isReversed: %t\n", getColorName(foreground), hasBackGround, getColorName(background), isBold, isUnderlined, isReversed)
+	function("%s", testSentence)
+	fmt.Fprint(os.Stdout, "\n")
+}
+
 func TestFprintFunction(t *testing.T) {
 	foreground := White
 	hasBackGround := getRandomBool()
@@ -92,6 +106,20 @@ func TestFprintlnFunction(t *testing.T) {
 	function := color.FprintlnFunction()
 	fmt.Fprintf(os.Stdout, "foreground: %s, hasBackground: %t, background: %s, isBold: %t, isUnderlined: %t, isReversed: %t\n", getColorName(foreground), hasBackGround, getColorName(background), isBold, isUnderlined, isReversed)
 	function(os.Stdout, testSentence)
+}
+
+func TestFprintflnFunction(t *testing.T) {
+	foreground := getRandomColor()
+	hasBackGround := getRandomBool()
+	background := getRandomColor()
+	isBold := getRandomBool()
+	isUnderlined := getRandomBool()
+	isReversed := getRandomBool()
+	color := New(foreground, hasBackGround, background, isBold, isUnderlined, isReversed)
+	function := color.FprintflnFunction()
+	fmt.Fprintf(os.Stdout, "foreground: %s, hasBackground: %t, background: %s, isBold: %t, isUnderlined: %t, isReversed: %t\n", getColorName(foreground), hasBackGround, getColorName(background), isBold, isUnderlined, isReversed)
+	function(os.Stdout, "%s", testSentence)
+	fmt.Fprint(os.Stdout, "\n")
 }
 
 func getRandomColor() byte {
