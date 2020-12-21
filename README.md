@@ -7,6 +7,30 @@ Go color
 ## Features
 color prints 8-bit colored text for Linux terminal.
 
+## Methods
+- Sprint
+- Sprintf
+- Print
+- Printf
+- Println
+- Printfln
+- Fprint
+- Fprintf
+- Fprintln
+- Fprintfln
+
+## Functions
+- SprintFunction
+- SprintfFunction
+- PrintFunction
+- PrintfFunction
+- PrintlnFunction
+- PrintflnFunction
+- FprintFunction
+- FprintfFunction
+- FprintlnFunction
+- FprintflnFunction
+
 ## Installation
 ```bash
 go get -u github.com/ermanimer/color
@@ -23,14 +47,10 @@ import (
 )
 
 func main() {
-	//create color
-	color1 := &color.Color{
-		Foreground: color.Blue,
-	}
-
+	//create color with struct
 	//use standard color names or 8-bit color codes for foreground and background color codes
-	color2 := &color.Color{
-		Foreground:    214,
+	color1 := &color.Color{
+		Foreground:    color.Blue,
 		HasBackground: true,
 		Background:    240,
 		IsBold:        true,
@@ -40,21 +60,14 @@ func main() {
 
 	//create color with New function
 	//func New(foreground byte, hasBackground bool, background byte, isBold bool, isUnderlined bool, isReversed bool) *color.Color
-	color3 := color.New(color.Red, true, color.White, false, false, false)
+	color2 := color.New(color.Red, true, color.White, false, false, false)
 
-	//print with print methods Print, Printf, Println, Printfln
+	//use methods
 	color1.Print("color 1")
 
-        //print to an io.Writer with file print methods Fprint, Fprintf, Fprintln, Fprintfln
-        color1.Fprint(os.Stdout, "color 1")
-
-	//print with print functions PrintFunction, PrintfFunction, PrintlnFunction, PrintflnFunction
-	printfColor2 := color2.PrintfFunction()
-	printfColor2("color %d", 2)
-
-	//print to an io.Writer with file print functions FprintFunction, FprintfFunction, FprintlnFunction, FprintflnFunction
-	printlnColor3 := color3.FprintlnFunction()
-	printlnColor3(os.Stdout, "color 3")
+    //use functions
+	printColor2 := color2.PrintFunction()
+	printColor2("color 2")
 }
 
 ```
