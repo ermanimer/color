@@ -65,7 +65,7 @@ func main() {
 	//use methods
 	color1.Print("color 1")
 
-    //use functions
+        //use functions
 	printColor2 := color2.PrintFunction()
 	printColor2("color 2")
 }
