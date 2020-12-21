@@ -56,6 +56,16 @@ func New(foreground byte, hasBackground bool, background byte, isBold bool, isUn
 	}
 }
 
+func (c *Color) Sprint(values ...interface{}) string {
+	text := fmt.Sprint(values...)
+	return c.paint(text)
+}
+
+func (c *Color) Sprintf(format string, values ...interface{}) string {
+	text := fmt.Sprintf(format, values...)
+	return c.paint(text)
+}
+
 func (c *Color) Print(values ...interface{}) (n int, err error) {
 	text := fmt.Sprint(values...)
 	return fmt.Print(c.paint(text))
@@ -94,6 +104,18 @@ func (c *Color) Fprintln(writer io.Writer, values ...interface{}) (n int, err er
 func (c *Color) Fprintfln(writer io.Writer, format string, values ...interface{}) (n int, err error) {
 	text := fmt.Sprintf(format, values...)
 	return fmt.Fprintln(writer, c.paint(text))
+}
+
+func (c *Color) SprintFunction() func(values ...interface{}) {
+	return func(values ...interface{}) {
+		c.Sprint(values...)
+	}
+}
+
+func (c *Color) SprintfFunction() func(format string, values ...interface{}) {
+	return func(format string, values ...interface{}) {
+		c.Sprintf(format, values...)
+	}
 }
 
 func (c *Color) PrintFunction() func(values ...interface{}) {
