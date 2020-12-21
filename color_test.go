@@ -12,6 +12,32 @@ const (
 	testSentence = "this is sentence has random colors and random text decorations for visual test"
 )
 
+func TestSprintFunction(t *testing.T) {
+	foreground := getRandomColor()
+	hasBackGround := getRandomBool()
+	background := getRandomColor()
+	isBold := getRandomBool()
+	isUnderlined := getRandomBool()
+	isReversed := getRandomBool()
+	color := New(foreground, hasBackGround, background, isBold, isUnderlined, isReversed)
+	function := color.SprintFunction()
+	fmt.Fprintf(os.Stdout, "foreground: %s, hasBackground: %t, background: %s, isBold: %t, isUnderlined: %t, isReversed: %t\n", getColorName(foreground), hasBackGround, getColorName(background), isBold, isUnderlined, isReversed)
+	fmt.Fprintln(os.Stdout, function(testSentence))
+}
+
+func TestSprintfFunction(t *testing.T) {
+	foreground := getRandomColor()
+	hasBackGround := getRandomBool()
+	background := getRandomColor()
+	isBold := getRandomBool()
+	isUnderlined := getRandomBool()
+	isReversed := getRandomBool()
+	color := New(foreground, hasBackGround, background, isBold, isUnderlined, isReversed)
+	function := color.SprintfFunction()
+	fmt.Fprintf(os.Stdout, "foreground: %s, hasBackground: %t, background: %s, isBold: %t, isUnderlined: %t, isReversed: %t\n", getColorName(foreground), hasBackGround, getColorName(background), isBold, isUnderlined, isReversed)
+	fmt.Fprintln(os.Stdout, function("%s", testSentence))
+}
+
 func TestPrintFunction(t *testing.T) {
 	foreground := getRandomColor()
 	hasBackGround := getRandomBool()
