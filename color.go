@@ -106,15 +106,15 @@ func (c *Color) Fprintfln(writer io.Writer, format string, values ...interface{}
 	return fmt.Fprintln(writer, c.paint(text))
 }
 
-func (c *Color) SprintFunction() func(values ...interface{}) {
-	return func(values ...interface{}) {
-		c.Sprint(values...)
+func (c *Color) SprintFunction() func(values ...interface{}) string {
+	return func(values ...interface{}) string {
+		return c.Sprint(values...)
 	}
 }
 
-func (c *Color) SprintfFunction() func(format string, values ...interface{}) {
-	return func(format string, values ...interface{}) {
-		c.Sprintf(format, values...)
+func (c *Color) SprintfFunction() func(format string, values ...interface{}) string {
+	return func(format string, values ...interface{}) string {
+		return c.Sprintf(format, values...)
 	}
 }
 
