@@ -5,7 +5,7 @@ Go color
 [![Go Report Card](https://goreportcard.com/badge/github.com/ermanimer/color)](https://goreportcard.com/report/github.com/ermanimer/color)
 
 ## Features
-color prints 8-bit colored text for Linux terminal.
+color prints 8-bit colored text for terminal on Unix based systems.
 
 ## Methods
 - Sprint
